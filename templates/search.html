@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #102a71;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffdc5f;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .quote-table {
+            width: 100%;
+        }
+        .quote-table th,
+        .quote-table td {
+            padding: 12px;
+            vertical-align: middle;
+        }
+        .quote-actions a {
+            color: #007bff;
+            margin-right: 5px;
+        }
+        .btn-add-quote {
+            margin-top: 20px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quotes</h1>
+        <hr />
+        <div class="search-container">
+            <form action="/search" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search quotes..." name="q">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table quote-table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Owner</th>
+                    <th>Quote</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <!-- Quote data will be displayed here -->
+        </table>
+        <hr />
+
+        <hr />
+        <p>User = {{ user }} (<a href="/logout">Logout</a>)</p>
+    </div>
+</body>
+</html>

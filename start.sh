@@ -1,0 +1,1 @@
+flask --app qoutes --debug run

@@ -1,0 +1,97 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #ffdc5f;
+            font-family: "Trirong", serif;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .quote-table {
+            width: 100%;
+        }
+        .quote-table th,
+        .quote-table td {
+            padding: 12px;
+            vertical-align: middle;
+        }
+        .quote-actions a {
+            color: #007bff;
+            margin-right: 5px;
+        }
+        .btn-add-quote {
+            margin-top: 20px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .comment-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quotes</h1>
+        <hr />
+        <div class="search-container">
+            <form action="/search" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search quotes..." name="q">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table quote-table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Owner</th>
+                    <th>Quote</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            {% for item in data %}
+            <tr>
+                <td>{{ item["owner"] }}</td>
+                <td>{{ item["text"] }}</td>
+                <td><em>--</em> <em>{{ item["author"] }}</em></td>
+                <td>{{ item["date"] }}</td>
+                <td class="quote-actions">
+                    <a href="/edit/{{ item['_id'] }}"><i class="material-icons">mode_edit</i></a>
+                    <a href="/delete/{{ item['_id'] }}"><i class="material-icons">delete</i></a>
+                    <a href="/add_comment/{{ item['_id'] }}">Add Comment</a>
+                    
+                    <!-- Display comments -->
+                    <ul>
+                        {% for comment in item['comments'] %}
+    {% if comment['public'] %}
+        <li>{{ comment['text'] }} - {{ comment['author'] }} - {{ comment['date'] }}</li>
+    {% endif %}
+{% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+            <!-- Quote data will be displayed here -->
+        </table>
+        <hr />
+        <a href="/add" class="btn btn-success btn-add-quote">Add a new quote!</a>
+        <hr />
+        <p>User = {{ user }} (<a href="/logout">Logout</a>)</p>
+    </div>
+</body>
+</html>
